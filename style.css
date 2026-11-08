@@ -1,94 +1,1099 @@
+/* ==========================================================================
+   Motivec / Amazing Events - UI/UX Design System (Dark Default & Light Mode)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root,
+[data-theme="dark"] {
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Brand & Accents (from Motivec reference) */
+  --accent-pink: #f43f85;
+  --accent-pink-hover: #e11d74;
+  --accent-purple: #7c3aed;
+  --accent-gradient: linear-gradient(135deg, #f43f85 0%, #7c3aed 100%);
+  --accent-glow: rgba(244, 63, 133, 0.35);
+
+  /* Dark Theme (Default) Surfaces */
+  --bg-outer: #070616;
+  --bg-hero-overlay: linear-gradient(90deg, rgba(8, 7, 26, 0.92) 0%, rgba(13, 11, 38, 0.72) 50%, rgba(8, 7, 26, 0.55) 100%);
+  --bg-navbar-pill: rgba(20, 19, 42, 0.88);
+  --border-navbar-pill: rgba(255, 255, 255, 0.12);
+  --shadow-navbar: 0 20px 50px rgba(0, 0, 0, 0.55);
+
+  /* Main Content Sheet (Rounded Bottom Section) */
+  --bg-main-sheet: #100f24;
+  --bg-surface-card: #181732;
+  --bg-surface-card-hover: #1f1e3f;
+  --bg-surface-elevated: #222044;
+  --border-card: rgba(255, 255, 255, 0.08);
+  --border-card-hover: rgba(244, 63, 133, 0.45);
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 18px 42px rgba(0, 0, 0, 0.5), 0 0 25px rgba(244, 63, 133, 0.12);
+
+  /* Text Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-nav: #e2e8f0;
+  --text-on-accent: #ffffff;
+
+  /* Form & Controls */
+  --bg-input: #181732;
+  --border-input: rgba(255, 255, 255, 0.14);
+  --text-input: #f8fafc;
+  --placeholder-input: #64748b;
+
+  /* Footer & Newsletter (Deep Navy/Indigo) */
+  --bg-footer: #070616;
+  --bg-newsletter-input: #15142e;
+  --text-footer: #ffffff;
+  --text-footer-muted: #94a3b8;
+  --border-footer: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] {
+  /* Light Theme Surfaces (Matching Reference Image High-Contrast Sheet) */
+  --bg-outer: #0c0926;
+  --bg-hero-overlay: linear-gradient(90deg, rgba(10, 8, 32, 0.88) 0%, rgba(16, 12, 48, 0.65) 55%, rgba(10, 8, 32, 0.45) 100%);
+  --bg-navbar-pill: #ffffff;
+  --border-navbar-pill: rgba(15, 23, 42, 0.08);
+  --shadow-navbar: 0 15px 40px rgba(0, 0, 0, 0.28);
+
+  /* Main Content Sheet */
+  --bg-main-sheet: #f7f7f9;
+  --bg-surface-card: #ffffff;
+  --bg-surface-card-hover: #ffffff;
+  --bg-surface-elevated: #f1f5f9;
+  --border-card: rgba(15, 23, 42, 0.07);
+  --border-card-hover: rgba(244, 63, 133, 0.45);
+  --shadow-card: 0 10px 28px rgba(15, 23, 42, 0.06);
+  --shadow-card-hover: 0 18px 38px rgba(15, 23, 42, 0.12);
+
+  /* Text Colors */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --text-nav: #1e293b;
+  --text-on-accent: #ffffff;
+
+  /* Form & Controls */
+  --bg-input: #ffffff;
+  --border-input: #e2e8f0;
+  --text-input: #0f172a;
+  --placeholder-input: #94a3b8;
+
+  /* Footer & Newsletter */
+  --bg-footer: #0b0824;
+  --bg-newsletter-input: #ffffff;
+  --text-footer: #ffffff;
+  --text-footer-muted: #94a3b8;
+  --border-footer: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   Base Reset & Global Typography
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-outer);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* ==========================================================================
+   Floating Pill Navbar (Motivec Style)
+   ========================================================================== */
+.navbar.motivec-navbar {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 3rem);
+  max-width: 1260px;
+  z-index: 1030;
+  background: var(--bg-navbar-pill) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-navbar-pill);
+  border-radius: 999px;
+  padding: 0.65rem 1.5rem;
+  box-shadow: var(--shadow-navbar);
+  transition: all 0.35s ease;
+}
+
+.motivec-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: var(--text-nav) !important;
+}
+
+.motivec-brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--accent-gradient);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.motivec-brand-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.motivec-navbar .navbar-nav {
+  gap: 0.35rem;
+}
+
+.motivec-navbar .nav-link {
+  color: var(--text-nav) !important;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 0.95rem !important;
+  border-radius: 999px;
+  transition: color 0.25s ease, background-color 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.motivec-navbar .nav-link::after {
+  content: "⌄";
+  font-size: 0.75rem;
+  opacity: 0.55;
+  transform: translateY(-2px);
+}
+
+.motivec-navbar .nav-link:hover,
+.motivec-navbar .nav-link.active {
+  color: var(--accent-pink) !important;
+}
+
+/* Navbar Right Actions */
+.motivec-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.motivec-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-navbar-pill);
+  background: transparent;
+  color: var(--text-nav);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.motivec-icon-btn:hover {
+  color: var(--accent-pink);
+  border-color: var(--accent-pink);
+  transform: translateY(-1px);
+}
+
+.motivec-badge-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-pink);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-navbar-pill);
+  background: var(--bg-surface-elevated);
+  color: var(--text-nav);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] .theme-toggle-btn {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent-pink);
+  color: var(--accent-pink);
+  transform: rotate(12deg) scale(1.05);
+}
+
+.theme-toggle-btn .sun-icon {
+  display: block;
+}
+.theme-toggle-btn .moon-icon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle-btn .sun-icon {
+  display: none;
+}
+[data-theme="light"] .theme-toggle-btn .moon-icon {
+  display: block;
+}
+
+/* Gradient Register CTA */
+.btn-motivec-cta {
+  background: var(--accent-gradient);
+  color: #ffffff !important;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.6rem 1.35rem;
+  border-radius: 999px;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: 0 8px 20px var(--accent-glow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.btn-motivec-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(244, 63, 133, 0.5);
+  color: #ffffff !important;
+}
+
+/* Mobile Toggler */
+.motivec-navbar .navbar-toggler {
+  border: 1px solid var(--border-navbar-pill);
+  padding: 0.4rem 0.65rem;
+  border-radius: 12px;
+  color: var(--text-nav);
+}
+
+[data-theme="dark"] .motivec-navbar .navbar-toggler-icon {
+  filter: invert(1) brightness(200%);
+}
+
+/* ==========================================================================
+   Hero Header / Carousel Banner
+   ========================================================================== */
 header {
-  height: 45vh;
+  position: relative;
+  height: 440px;
+  min-height: 400px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  background-color: #070616;
 }
 
-main {
-  min-height: 30vh;
-}
-.form-control {
-  border: 1px solid black;
-}
-.card {
-  border-radius: 10px;
-  border: 1px solid black;
-  transition: all 0.5s ease;
-}
-
-.card:hover {
-  transform: rotate(1.5deg);
-  background-color: rgb(0, 0, 0);
-  color: white;
-}
-.card-detail {
-  min-height: 80vh;
-  border-radius: 10px;
-  border: 1px solid black;
-  transition: all 0.5s ease;
-}
-.card-detail:hover {
-  background-color: rgb(244, 244, 244);
-  color: black;
-}
-.contact {
-  min-height: 50vh;
-  min-width: 50%;
-}
-.btn:hover {
-  background-color: white;
-  color: black;
-}
-
-.card-img-top {
-  width: 100%;
-  height: 15rem;
-  object-fit: cover;
-  border-radius: 10px;
-}
-.form-control {
-  width: 20%;
-}
-
-.material-checkbox {
-  padding: 0.5rem;
-}
-
-.btn-fixed {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-}
-
-.carousel-item img {
-  height: 45vh;
-  object-fit: cover !important;
-  filter: brightness(65%);
-}
-
-#carouselExampleInterval {
+#carouselExampleInterval,
+header .carousel-inner,
+header .carousel-item {
   width: 100% !important;
+  height: 100% !important;
 }
 
 .carousel-item {
   position: relative;
 }
+
+.carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg-hero-overlay);
+  z-index: 1;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 440px !important;
+  object-fit: cover !important;
+  object-position: center 30%;
+  filter: brightness(55%) contrast(1.08);
+  transform: scale(1.02);
+  transition: transform 6s ease;
+}
+
+.carousel-item.active img {
+  transform: scale(1);
+}
+
+/* Left-aligned Hero Title & Breadcrumb (matching "Blog Grid View") */
 .carousel-item h2 {
   position: absolute;
-  top: 50%;
-  left: 40%;
+  top: 56%;
+  left: max(5%, calc((100vw - 1200px) / 2 + 1rem));
+  transform: translateY(-50%);
   z-index: 3;
-  color: white;
-  text-align: center;
+  color: #ffffff;
+  text-align: left;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0;
+  line-height: 1.15;
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
 }
+
+.carousel-item h2::after {
+  content: "MOTIVEC   ›   AMAZING EVENTS GRID VIEW";
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.85rem;
+  text-transform: uppercase;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+  z-index: 4;
+  opacity: 0.35;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   Main Content Sheet (Rounded Bottom Card Sheet like Reference)
+   ========================================================================== */
+.motivec-main-sheet {
+  position: relative;
+  z-index: 5;
+  background-color: var(--bg-main-sheet);
+  border-radius: 0 0 48px 48px;
+  padding: 3.5rem 1.5rem 5rem;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
+  transition: background-color 0.35s ease;
+}
+
+.motivec-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Filter & Search Toolbar
+   ========================================================================== */
+.motivec-toolbar {
+  max-width: 1180px;
+  margin: 0 auto 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.35rem;
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+#checksInputs {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#categories {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.4rem;
+  font-weight: 700;
+  font-size: 0.84rem;
+  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 6px 18px var(--accent-glow);
+  transition: all 0.25s ease;
+}
+
+#categories::before {
+  content: "✦";
+  font-size: 0.9rem;
+}
+
+#categories:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(244, 63, 133, 0.5);
+  color: #ffffff;
+}
+
+.checksFather {
+  flex: 1;
+  max-width: 420px;
+  min-width: 240px;
+}
+
+.checksFather > div[role="search"] {
+  width: 100%;
+  justify-content: flex-end !important;
+}
+
+#searchInput.form-control {
+  width: 100% !important;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-input);
+  color: var(--text-input);
+  border-radius: 999px;
+  padding: 0.65rem 1.25rem !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: none;
+  transition: all 0.25s ease;
+}
+
+#searchInput.form-control::placeholder {
+  color: var(--placeholder-input);
+}
+
+#searchInput.form-control:focus {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 0 3px rgba(244, 63, 133, 0.2);
+}
+
+/* ==========================================================================
+   2-Column Horizontal Card Grid (Matching Reference Image Layout)
+   ========================================================================== */
+#cards {
+  max-width: 1180px;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.25rem 2.5rem !important;
+  padding: 0.5rem 0;
+}
+
+#cards .card {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-card);
+  border-radius: 22px;
+  padding: 1.15rem;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+  overflow: hidden;
+}
+
+#cards .card:hover {
+  transform: translateY(-5px);
+  background-color: var(--bg-surface-card-hover);
+  border-color: var(--border-card-hover);
+  box-shadow: var(--shadow-card-hover);
+  color: var(--text-primary);
+}
+
+/* Left Rounded Thumbnail Image */
+#cards .card-img-top {
+  width: 215px !important;
+  min-width: 215px;
+  height: 170px !important;
+  object-fit: cover;
+  border-radius: 16px !important;
+  flex-shrink: 0;
+  transition: transform 0.45s ease;
+}
+
+#cards .card:hover .card-img-top {
+  transform: scale(1.04);
+}
+
+/* Right Content Column */
+#cards .card-body {
+  padding: 0.25rem 0.5rem 0.25rem 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Dynamic Pink Pill Badge + Date Meta Line (Matching Reference) */
+#cards .card-body::before {
+  content: "EVENT  •  27 FEBRUARY, 2024";
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(90deg, var(--accent-pink) 0%, var(--accent-pink) 42%, transparent 42.1%);
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  margin-bottom: 0.65rem;
+  white-space: nowrap;
+}
+
+/* Adjust pseudo-badge so the date text sits cleanly beside the pink pill */
+#cards .card-body::before {
+  background: var(--accent-pink);
+  content: "CONFERENCE";
+  padding: 0.24rem 0.75rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(244, 63, 133, 0.28);
+}
+
+/* Card Title (First h5) */
+#cards .card-body h5.card-title:first-of-type {
+  font-size: 1.22rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--text-primary);
+  margin: 0.15rem 0 0.35rem;
+  letter-spacing: -0.015em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Price / Meta Subtitle (Second h5) */
+#cards .card-body h5.card-title:nth-of-type(2) {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+#cards .card-body h5.card-title:nth-of-type(2)::before {
+  content: "27 FEBRUARY, 2024  •  ";
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* "Readmore ↗" Link Style for Card Button */
+#cards .card-body .btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--text-primary) !important;
+  font-size: 0.86rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--border-input);
+  transition: color 0.25s ease, text-decoration-color 0.25s ease, transform 0.25s ease;
+}
+
+#cards .card-body .btn::after {
+  content: "↗";
+  font-size: 0.95rem;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+#cards .card-body .btn:hover {
+  color: var(--accent-pink) !important;
+  text-decoration-color: var(--accent-pink);
+}
+
+#cards .card-body .btn:hover::after {
+  transform: translate(2px, -2px);
+}
+
+/* ==========================================================================
+   Modal Styling (Category Filter Modal)
+   ========================================================================== */
+.modal {
+  z-index: 1065 !important;
+}
+
+.modal-backdrop {
+  z-index: 1060 !important;
+}
+
+.modal-content {
+  background-color: var(--bg-surface-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-card);
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-card);
+  padding: 1rem 1.5rem;
+}
+
+.material-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1.1rem;
+  margin: 0.35rem;
+  border-radius: 999px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-card);
+  color: var(--text-primary);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.material-checkbox:hover {
+  border-color: var(--accent-pink);
+  transform: translateY(-1px);
+}
+
+.material-checkbox:has(input[type="checkbox"]:checked) {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 6px 16px var(--accent-glow);
+}
+
+.material-checkbox input[type="checkbox"] {
+  accent-color: var(--accent-pink);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Details, Contact & Stats Views Compatibility
+   ========================================================================== */
+.card-detail {
+  background: var(--bg-surface-card);
+  color: var(--text-primary);
+  border-radius: 24px;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-card);
+  padding: 2rem;
+  margin: 2rem auto;
+  transition: all 0.35s ease;
+}
+
+.card-detail:hover {
+  background-color: var(--bg-surface-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-card-hover);
+}
+
+.card-detail .card-img-top {
+  height: 340px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.contact input[type="text"] {
+  background: var(--bg-input);
+  border: 1px solid var(--border-input);
+  color: var(--text-input);
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  margin-top: 0.4rem;
+}
+
 .sectiondelstats {
   display: flex;
   justify-content: center;
+  padding: 2rem 1rem;
 }
 
-table {
-  margin-top: 1.5rem;
-  border: 1px solid black !important;
-  border-radius: 10px;
+table.table {
+  background: var(--bg-surface-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-card) !important;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--text-primary);
+  --bs-table-border-color: var(--border-card);
+}
+
+table.table th,
+table.table td {
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-card) !important;
+  padding: 0.95rem 1.25rem;
+  vertical-align: middle;
+}
+
+table.table thead th {
+  background: var(--bg-surface-elevated) !important;
+  color: var(--accent-pink) !important;
+  letter-spacing: 0.02em;
+}
+
+table.table tr[class*="fw-bold"] td,
+table.table tr[class*="fw-bold"] th {
+  background: rgba(244, 63, 133, 0.08) !important;
+}
+
+/* ==========================================================================
+   Floating Side Dock & Scroll-to-Top Button (Matching Reference)
+   ========================================================================== */
+.motivec-side-dock {
+  position: fixed;
+  right: 0;
+  top: 52%;
+  transform: translateY(-50%);
+  z-index: 1020;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.motivec-dock-item {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: -4px 6px 16px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.motivec-dock-item:hover {
+  transform: translateX(-3px);
+}
+
+.motivec-dock-item.dock-green {
+  background: #65c13e;
+}
+
+.motivec-dock-item.dock-dark {
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-fixed#myBtn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  left: auto;
+  z-index: 1030;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(244, 63, 133, 0.15);
+  border: 1.5px solid var(--accent-pink);
+  color: #ffffff;
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  transition: all 0.25s ease;
+}
+
+.btn-fixed#myBtn::after {
+  content: "⌃";
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent-pink);
+}
+
+.btn-fixed#myBtn:hover {
+  background: var(--accent-pink);
+  transform: translateY(-3px);
+}
+
+.btn-fixed#myBtn:hover::after {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Motivec Newsletter & Footer Section
+   ========================================================================== */
+.motivec-footer {
+  background: radial-gradient(circle at 12% 85%, rgba(244, 63, 133, 0.16) 0%, transparent 38%),
+              radial-gradient(circle at 88% 20%, rgba(124, 58, 237, 0.18) 0%, transparent 42%),
+              var(--bg-footer);
+  color: var(--text-footer);
+  padding: 5rem 1.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.motivec-footer-container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Newsletter Row */
+.motivec-newsletter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 4.5rem;
+  border-bottom: 1px solid var(--border-footer);
+}
+
+.motivec-newsletter h3 {
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 460px;
+  text-transform: uppercase;
+}
+
+.motivec-newsletter-form {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 0.35rem 0.35rem 0.35rem 1.5rem;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+.motivec-newsletter-form input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #0f172a;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.motivec-newsletter-form input::placeholder {
+  color: #94a3b8;
+}
+
+.motivec-newsletter-submit {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-pink);
+  color: #ffffff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.motivec-newsletter-submit:hover {
+  background: var(--accent-pink-hover);
+  transform: scale(1.06);
+}
+
+/* Footer Columns */
+.motivec-footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1.2fr 1.3fr 1fr;
+  gap: 2.5rem;
+  padding: 4rem 0 3.5rem;
+}
+
+.motivec-footer-col h6 {
+  color: var(--text-footer-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.motivec-footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.motivec-footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.motivec-footer-links a:hover {
+  color: var(--accent-pink);
+}
+
+.motivec-contact-mail {
+  color: #cbd5e1;
+  text-decoration: underline;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 0.6rem;
+}
+
+.motivec-contact-phone {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.motivec-socials {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.motivec-socials a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.motivec-socials a:hover {
+  opacity: 1;
+  color: var(--accent-pink);
+}
+
+/* Bottom Bar */
+.motivec-footer-bottom {
+  border-top: 1px solid var(--border-footer);
+  padding-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-footer-muted);
+}
+
+.motivec-footer-bottom strong {
+  color: #ffffff;
+  font-size: 0.92rem;
+}
+
+.motivec-footer-legal {
+  display: flex;
+  gap: 1rem;
+}
+
+.motivec-footer-legal a {
+  color: var(--text-footer-muted);
+  text-decoration: none;
+}
+
+.motivec-footer-legal a:hover {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 991.98px) {
+  .navbar.motivec-navbar {
+    border-radius: 24px;
+    padding: 0.75rem 1.25rem;
+  }
+
+  #cards {
+    grid-template-columns: 1fr;
+  }
+
+  .motivec-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575.98px) {
+  #cards .card {
+    flex-direction: column !important;
+    align-items: stretch;
+  }
+
+  #cards .card-img-top {
+    width: 100% !important;
+    height: 200px !important;
+  }
+
+  .motivec-main-sheet {
+    border-radius: 0 0 32px 32px;
+    padding: 2.25rem 1rem 3.5rem;
+  }
+
+  .motivec-footer-grid {
+    grid-template-columns: 1fr;
+  }
 }

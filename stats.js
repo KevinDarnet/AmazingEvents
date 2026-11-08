@@ -1,76 +1,75 @@
 const url = "https://mindhub-xj03.onrender.com/api/amazing";
 const contenedorElement = document.getElementById("cuerpo1");
 let eventos;
-fetch(url)
-  .then((response) => response.json())
-  .then((datos) => {
-    const evento = datos.events;
 
-    //PastEvent//
+function renderStats(datos) {
+  const evento = datos.events;
 
-    const pastEvents = evento.filter(
-      (elemento) => elemento.date < datos.currentDate
-    );
-    const estadisticasDepast = pastEvents.reduce((ac, categoria) => {
-      if (!ac[categoria.category]) {
-        ac[categoria.category] = {
-          revenues: 0,
-          porcentajeAsistencia: 0,
-          contador: 0,
-        };
-      }
-      ac[categoria.category].contador += 1;
-      ac[categoria.category].revenues += categoria.assistance * categoria.price;
-      ac[categoria.category].porcentajeAsistencia +=
-        (categoria.assistance / categoria.capacity) * 100;
-      return ac;
-    }, {});
-    const pastEventsMayorAsistencia = [...pastEvents].sort(function (a, b) {
-      let porcentajeA = (a.assistance / a.capacity) * 100;
-      let porcentajeB = (b.assistance / b.capacity) * 100;
-      if (porcentajeA < porcentajeB) {
-        return 1;
-      }
-      if (porcentajeA > porcentajeB) {
-        return -1;
-      }
-      return 0;
-    });
-    const pastEventsMayorCapacidad = [...pastEvents].sort(function (a, b) {
-      if (a.capacity < b.capacity) {
-        return 1;
-      }
-      if (a.capacity > b.capacity) {
-        return -1;
-      }
-      return 0;
-    });
-    const eventoconMayorAsistencia = pastEventsMayorAsistencia[0];
-    const eventoconMenorAsistencia =
-      pastEventsMayorAsistencia[pastEventsMayorAsistencia.length - 1];
-    const eventoconMayorCapacidad = pastEventsMayorCapacidad[0];
-    //Upcomming//
-    const upCooming = evento.filter(
-      (elemento) => elemento.date > datos.currentDate
-    );
-    const estadisticasDeUpcomming = upCooming.reduce((ac, categoria) => {
-      if (!ac[categoria.category]) {
-        ac[categoria.category] = {
-          revenues: 0,
-          porcentajeEstimado: 0,
-          contador: 0,
-        };
-      }
-      ac[categoria.category].contador += 1;
-      ac[categoria.category].revenues += categoria.estimate * categoria.price;
-      ac[categoria.category].porcentajeEstimado +=
-        (categoria.estimate / categoria.capacity) * 100;
-      return ac;
-    }, {});
+  //PastEvent//
+  const pastEvents = evento.filter(
+    (elemento) => elemento.date < datos.currentDate
+  );
+  const estadisticasDepast = pastEvents.reduce((ac, categoria) => {
+    if (!ac[categoria.category]) {
+      ac[categoria.category] = {
+        revenues: 0,
+        porcentajeAsistencia: 0,
+        contador: 0,
+      };
+    }
+    ac[categoria.category].contador += 1;
+    ac[categoria.category].revenues += categoria.assistance * categoria.price;
+    ac[categoria.category].porcentajeAsistencia +=
+      (categoria.assistance / categoria.capacity) * 100;
+    return ac;
+  }, {});
+  const pastEventsMayorAsistencia = [...pastEvents].sort(function (a, b) {
+    let porcentajeA = (a.assistance / a.capacity) * 100;
+    let porcentajeB = (b.assistance / b.capacity) * 100;
+    if (porcentajeA < porcentajeB) {
+      return 1;
+    }
+    if (porcentajeA > porcentajeB) {
+      return -1;
+    }
+    return 0;
+  });
+  const pastEventsMayorCapacidad = [...pastEvents].sort(function (a, b) {
+    if (a.capacity < b.capacity) {
+      return 1;
+    }
+    if (a.capacity > b.capacity) {
+      return -1;
+    }
+    return 0;
+  });
+  const eventoconMayorAsistencia = pastEventsMayorAsistencia[0];
+  const eventoconMenorAsistencia =
+    pastEventsMayorAsistencia[pastEventsMayorAsistencia.length - 1];
+  const eventoconMayorCapacidad = pastEventsMayorCapacidad[0];
 
-    console.log(estadisticasDepast);
-    let tabla1 = `
-            <thead class= "text-center">
+  //Upcomming//
+  const upCooming = evento.filter(
+    (elemento) => elemento.date > datos.currentDate
+  );
+  const estadisticasDeUpcomming = upCooming.reduce((ac, categoria) => {
+    if (!ac[categoria.category]) {
+      ac[categoria.category] = {
+        revenues: 0,
+        porcentajeEstimado: 0,
+        contador: 0,
+      };
+    }
+    ac[categoria.category].contador += 1;
+    ac[categoria.category].revenues += categoria.estimate * categoria.price;
+    ac[categoria.category].porcentajeEstimado +=
+      (categoria.estimate / categoria.capacity) * 100;
+    return ac;
+  }, {});
+
+  console.log(estadisticasDepast);
+  let tabla1 = `
+            <tr class="text-center fw-bold">
                 <th>
                     Event with the highest % of attendance
                 </th>
@@ -80,29 +79,34 @@ fetch(url)
                 <th>
                     Event with larger capacity
                 </th>
-            </thead>
+            </tr>
             <tr>
                 <td>
                     ${eventoconMayorAsistencia.name} ${(
-      (eventoconMayorAsistencia.assistance /
-        eventoconMayorAsistencia.capacity) *
-      100
-    ).toFixed(1)} %
+    (eventoconMayorAsistencia.assistance /
+      eventoconMayorAsistencia.capacity) *
+    100
+  ).toFixed(1)} %
                 </td>
                 <td>
                     ${eventoconMenorAsistencia.name} ${(
-      (eventoconMenorAsistencia.assistance /
-        eventoconMenorAsistencia.capacity) *
-      100
-    ).toFixed(1)} %
+    (eventoconMenorAsistencia.assistance /
+      eventoconMenorAsistencia.capacity) *
+    100
+  ).toFixed(1)} %
                 </td>
                 <td>
                     ${eventoconMayorCapacidad.name} ${
-      eventoconMayorAsistencia.capacity * 2
-    }
+    eventoconMayorCapacidad.capacity
+  }
                 </td>
             </tr>
             <tr>
+                <td class="text-center fw-bold" colspan="3">
+                    Upcoming events statistics by category
+                </td>
+            </tr>
+            <tr class="fw-bold">
                 <td>
                     Category
                 </td>
@@ -118,10 +122,13 @@ fetch(url)
                     Food
                 </td>
                 <td>
-                    ${estadisticasDeUpcomming["Food"].revenues}    
+                    $${estadisticasDeUpcomming["Food"].revenues}    
                 </td>
                 <td>
-                    ${estadisticasDeUpcomming["Food"].porcentajeEstimado} %
+                    ${(
+                      estadisticasDeUpcomming["Food"].porcentajeEstimado /
+                      estadisticasDeUpcomming["Food"].contador
+                    ).toFixed(2)} %
                 </td>
             </tr>
             <tr>
@@ -129,7 +136,7 @@ fetch(url)
                     Books
                 </td>
                 <td>
-                    ${estadisticasDeUpcomming["Books"].revenues}    
+                    $${estadisticasDeUpcomming["Books"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -143,7 +150,7 @@ fetch(url)
                     Party
                 </td>
                 <td>
-                    ${estadisticasDeUpcomming["Party"].revenues}    
+                    $${estadisticasDeUpcomming["Party"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -157,7 +164,7 @@ fetch(url)
                     Race
                 </td>
                 <td>
-                    ${estadisticasDeUpcomming["Race"].revenues}    
+                    $${estadisticasDeUpcomming["Race"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -171,7 +178,7 @@ fetch(url)
                     Concert
                 </td>
                 <td>
-                    ${estadisticasDeUpcomming["Concert"].revenues}    
+                    $${estadisticasDeUpcomming["Concert"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -185,7 +192,7 @@ fetch(url)
                     Museum
                 </td>
                 <td>
-                    ${estadisticasDeUpcomming["Museum"].revenues}    
+                    $${estadisticasDeUpcomming["Museum"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -194,12 +201,12 @@ fetch(url)
                     ).toFixed(2)} %
                 </td>
             </tr>
-            <tr >
-                <td class= "text-center"colspan="3">
+            <tr>
+                <td class="text-center fw-bold" colspan="3">
                     Past events statistics by category
                 </td>
             </tr>
-            <tr>
+            <tr class="fw-bold">
                 <td>
                     Category
                 </td>
@@ -215,7 +222,7 @@ fetch(url)
                     Food
                 </td>
                 <td>
-                    ${estadisticasDepast["Food"].revenues}    
+                    $${estadisticasDepast["Food"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -229,7 +236,7 @@ fetch(url)
                     Books
                 </td>
                 <td>
-                    ${estadisticasDepast["Books"].revenues}    
+                    $${estadisticasDepast["Books"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -243,7 +250,7 @@ fetch(url)
                     Party
                 </td>
                 <td>
-                    ${estadisticasDepast["Party"].revenues}    
+                    $${estadisticasDepast["Party"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -257,7 +264,7 @@ fetch(url)
                     Race
                 </td>
                 <td>
-                    ${estadisticasDepast["Race"].revenues}    
+                    $${estadisticasDepast["Race"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -271,7 +278,7 @@ fetch(url)
                     Concert
                 </td>
                 <td>
-                    ${estadisticasDepast["Concert"].revenues}    
+                    $${estadisticasDepast["Concert"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -285,7 +292,7 @@ fetch(url)
                     Museum
                 </td>
                 <td>
-                    ${estadisticasDepast["Museum"].revenues}    
+                    $${estadisticasDepast["Museum"].revenues}    
                 </td>
                 <td>
                     ${(
@@ -295,5 +302,18 @@ fetch(url)
                 </td>
             </tr>             
             `;
-    contenedorElement.innerHTML = tabla1;
-  });
+  contenedorElement.innerHTML = tabla1;
+}
+
+// Render immediately if local `info` from dataNew.js is available, and also support API fetch
+if (typeof info !== "undefined" && info.events) {
+  renderStats(info);
+} else {
+  fetch(url)
+    .then((response) => response.json())
+    .then((datos) => renderStats(datos))
+    .catch((err) => {
+      console.error("API unavailable, using fallback data:", err);
+      if (typeof info !== "undefined") renderStats(info);
+    });
+}
